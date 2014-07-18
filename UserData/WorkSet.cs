@@ -17,9 +17,10 @@ namespace Timer.UserData
             this.WorkItems = workItems;
         }
 
+        private int? _totalSeconds;
         public int GetTotalSeconds()
         {
-            return HasWorkItem ? WorkItems.Sum(x => x.Seconds) : 0;
+            return (_totalSeconds ?? (_totalSeconds = (HasWorkItem ? WorkItems.Sum(x => x.Seconds) : 0))).Value;
         }
 
         public int GetTotalSeconds(int idx)

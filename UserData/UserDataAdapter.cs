@@ -35,6 +35,7 @@ namespace Timer.UserData
             {
                 w.WriteStartElement("UserData");
                 w.WriteElementString("Second", GetSecond().ToString());
+                w.WriteElementString("PreWorkFinishedSecond", PreWorkFinishedSecond.ToString());
                 w.WriteElementString("WorkIdx", CurrentWorkIdx.ToString());
 
                 w.WriteStartElement("WorkItems");
@@ -59,6 +60,7 @@ namespace Timer.UserData
             if (!File.Exists(dataFilePath))
             {
                 InitSecond = 0;
+                PreWorkFinishedSecond = 0;
                 CurrentWorkIdx = 0;
                 MyWorkSet = new WorkSet(new List<WorkItem>());
                 return;
@@ -76,6 +78,11 @@ namespace Timer.UserData
                                 var second = 0;
                                 int.TryParse(r.ReadString(), out second);
                                 InitSecond = second;
+                                break;
+                            case "PreWorkFinishedSecond":
+                                var preWorkFinishedSecond = 0;
+                                int.TryParse(r.ReadString(), out preWorkFinishedSecond);
+                                PreWorkFinishedSecond = preWorkFinishedSecond;
                                 break;
                             case "WorkIdx":
                                 var workIdx = 0;

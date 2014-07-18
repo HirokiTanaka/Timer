@@ -11,6 +11,8 @@ namespace Timer.UserData
     {
         private int InitSecond { get; set; }
 
+        public int PreWorkFinishedSecond { get; private set; }
+
         private WorkSet MyWorkSet { get; set; }
 
         public bool HasWorkSet
@@ -44,6 +46,15 @@ namespace Timer.UserData
             }
         }
 
+        public int CurrentWorkSeconds
+        {
+            get
+            {
+                var item = CurrentWorkItem;
+                return item == null ? 0 : item.Seconds;
+            }
+        }
+
         public bool IsAllFinished
         {
             get { return MyWorkSet.WorkItemCount <= CurrentWorkIdx; }
@@ -67,6 +78,7 @@ namespace Timer.UserData
         public void Edit(WorkSet workSet)
         {
             InitSecond = 0;
+            PreWorkFinishedSecond = 0;
             CurrentWorkIdx = 0;
             MyWorkSet = workSet;
         }
@@ -79,6 +91,7 @@ namespace Timer.UserData
 
         public void FinishWorkItem()
         {
+            PreWorkFinishedSecond = GetSecond();
             if (IsAllFinished)
                 return;
 

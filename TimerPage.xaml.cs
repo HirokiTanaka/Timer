@@ -29,6 +29,7 @@ namespace Timer
             {
                 // プログレスバーの設定
                 TimerBar.Maximum = userData.TotalWorkSeconds;
+                SetWorkTimeBarMaximum();
                 SetTimerBarProp();
                 _bw = new BackgroundWorker();
                 _bw.WorkerReportsProgress = true;
@@ -36,6 +37,7 @@ namespace Timer
                 _bw.DoWork += new DoWorkEventHandler(bw_DoWork);
                 _bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
                 _bw.RunWorkerAsync();
+
 
                 // ボタン設定
                 var hasUndone = !userData.IsAllFinished;
@@ -82,6 +84,7 @@ namespace Timer
                 _bw.CancelAsync();
             }
 
+            SetWorkTimeBarMaximum();
             SetTimerBarProp();
             SetCurrentWorkInfo();
         }
@@ -131,8 +134,31 @@ namespace Timer
             TimerBar.Value = Math.Min(current, TimerBar.Maximum);
 
             var nextLimit = userData.GetNextLimitSecond();
+            var workTimeBarVal = current - userData.PreWorkFinishedSecond;
+            if (workTimeBarVal <= WorkTimerBar.Maximum)
+            {
+                WorkTimerBar.Value = workTimeBarVal;
+                WorkTimerBar.Style = (Style)(Application.Current.Resources["NormalProgressBarStyle"]);
+            }
+            else
+            {
+                WorkTimerBar.Style = (Style)(Application.Current.Resources["WarnProgressBarStyle"]);
+            }
+
             var styleName = nextLimit < current ? "WarnProgressBarStyle" : "NormalProgressBarStyle";
             TimerBar.Style = (Style)(Application.Current.Resources[styleName]);
+        }
+
+        private void SetWorkTimeBarMaximum()
+        {
+            if (userData.IsAllFinished)
+            {
+                WorkTimerBar.Visibility = Visibility.Hidden;
+                return;
+            }
+
+            var nextLimit = userData.GetNextLimitSecond();
+            WorkTimerBar.Maximum = nextLimit - userData.PreWorkFinishedSecond;
         }
 
         private void SetCurrentWorkInfo()
