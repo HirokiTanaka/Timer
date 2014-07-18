@@ -16,6 +16,7 @@
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" Click="MinimizeButton_Click"/>
                 <Button Content="r" Style="{DynamicResource CaptionButtonStyleKey}" Click="CloseButton_Click" />
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Top">

@@ -52,6 +52,12 @@ namespace Timer
             // 現在の作業情報の設定
             SetCurrentWorkInfo();
         }
+        
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 最小化ボタン押下時
+            SystemCommands.MinimizeWindow(Application.Current.MainWindow);
+        }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {

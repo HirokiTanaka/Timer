@@ -41,6 +41,7 @@
                     <Button Content="3" Style="{DynamicResource CaptionButtonStyleKey}" Click="BackButton_Click" />
                 </StackPanel>
                 <WrapPanel Grid.Column="1" Orientation="Horizontal" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" Click="MinimizeButton_Click"/>
                     <Button Content="r" Style="{DynamicResource CaptionButtonStyleKey}" Click="CloseButton_Click" />
                 </WrapPanel>
             </Grid>

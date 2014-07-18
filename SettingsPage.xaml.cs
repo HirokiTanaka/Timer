@@ -56,6 +56,12 @@ namespace Timer
             BackToTimerPage();
         }
 
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 最小化ボタン押下時
+            SystemCommands.MinimizeWindow(Application.Current.MainWindow);
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             // ユーザデータ保存処理
